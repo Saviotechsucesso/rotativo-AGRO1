@@ -1,0 +1,25 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="refresh" content="0;url=" id="redirect">
+    <script>
+        // Lista dos vendedores da Loja 1
+        var vendedores = [
+            "https://wa.me/5593992407707?text=Olá,%20quero%20mais%20informações",
+            "https://wa.me/5593991153728?text=Olá,%20quero%20mais%20informações",
+            "https://wa.me/5511915539264?text=Olá,%20quero%20mais%20informações"
+        ];
+
+        // Obtém o índice do próximo vendedor de forma sequencial
+        var index = localStorage.getItem("vendedorIndex") || 0;
+        index = (parseInt(index) + 1) % vendedores.length;
+        localStorage.setItem("vendedorIndex", index);
+
+        // Redireciona para o WhatsApp do vendedor correspondente
+        window.location.href = vendedores[index];
+    </script>
+</head>
+<body>
+</body>
+</html>
