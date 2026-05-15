@@ -73,7 +73,13 @@
     Informe seu WhatsApp para continuar rapidamente o atendimento.
   </p>
 
-  <input type="tel" id="telefone" placeholder="(93) 99999-9999">
+  <input
+  type="tel"
+  id="telefone"
+  placeholder="99999-9999"
+  maxlength="9"
+  inputmode="numeric"
+>
 
   <button onclick="continuar()">
     CONTINUAR ATENDIMENTO
@@ -97,10 +103,12 @@ async function continuar() {
 
   telefone = telefone.replace(/\D/g, '');
 
-  if(telefone.length < 10){
-    alert("Digite um WhatsApp válido");
+  if(telefone.length !== 9){
+    alert("Digite os 9 números do WhatsApp");
     return;
   }
+
+  telefone = "93" + telefone;
 
   const params = new URLSearchParams(window.location.search);
 
