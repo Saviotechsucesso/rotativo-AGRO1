@@ -73,12 +73,36 @@
     Informe seu WhatsApp para continuar rapidamente o atendimento.
   </p>
 
+  <<div style="display:flex; align-items:center; margin-top:20px;">
+
+  <div style="
+    background:#eee;
+    padding:14px;
+    border:1px solid #ccc;
+    border-right:none;
+    border-radius:8px 0 0 8px;
+    font-size:18px;
+  ">
+    93
+  </div>
+
   <input
-  type="tel"
-  id="telefone"
-  placeholder="99999-9999"
-  maxlength="9"
-  inputmode="numeric"
+    type="tel"
+    id="telefone"
+    placeholder="999999999"
+    maxlength="9"
+    inputmode="numeric"
+    style="
+      flex:1;
+      padding:14px;
+      font-size:18px;
+      border:1px solid #ccc;
+      border-radius:0 8px 8px 0;
+      box-sizing:border-box;
+    "
+  >
+
+</div>
 >
 
   <button onclick="continuar()">
@@ -123,7 +147,7 @@ async function continuar() {
 
   const vendedor = vendedores[index];
 
-  await fetch(`${SUPABASE_URL}/rest/v1/leads`, {
+  await fetch(`${SUPABASE_URL}/rest/v1/pistas`, {
     method: "POST",
     headers: {
       "apikey": SUPABASE_KEY,
@@ -141,7 +165,7 @@ async function continuar() {
   });
 
   const mensagem = encodeURIComponent(
-    `Olá, vim do anúncio.\nMeu contato: ${telefone}`
+    `Olá, vim do anúncio e gostaria de atendimento.`
   );
 
   window.location.href =
