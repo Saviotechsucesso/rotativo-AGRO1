@@ -137,8 +137,14 @@ const SUPABASE_URL = "https://pdtjpusxhdnroichwckp.supabase.co";
 const SUPABASE_KEY = "sb_publishable_omS12Ik0drT7eXfW8eiLjQ_Mx0oGTis";
 
 const vendedores = [
-  "5593992407707",
-  "5511915539264"
+  {
+    numero: "5593992407707",
+    nome: "Carlos"
+  },
+  {
+    numero: "5511915539264",
+    nome: "Marcos"
+  }
 ];
 
 const input = document.getElementById("telefone");
@@ -191,12 +197,13 @@ async function continuar() {
     "Prefer": "return=minimal"
   },
   body: JSON.stringify({
-    telefone: telefone,
-    vendedor: vendedor,
-    campanha: campanha,
-    criativo: criativo,
-    loja: "AGRO BN"
-  })
+  telefone: telefone,
+  vendedor: vendedor.nome,
+  numero_vendedor: vendedor.numero,
+  campanha: campanha,
+  criativo: criativo,
+  loja: "AGRO BN"
+})
 });
 
 const resultado = await resposta.text();
@@ -208,8 +215,8 @@ console.log("RESPOSTA:", resultado);
     `Olá, vim do anúncio e gostaria de atendimento.`
   );
 
-  window.location.href =
-    `https://wa.me/${vendedor}?text=${mensagem}`;
+ window.location.href =
+  `https://wa.me/${vendedor.numero}?text=${mensagem}`;
 }
 
 </script>
