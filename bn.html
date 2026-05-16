@@ -180,30 +180,35 @@ async function continuar() {
   const campanha = params.get("campanha") || "direto";
   const criativo = params.get("criativo") || "sem_criativo";
 
-  let index = localStorage.getItem("vendedorIndex") || -1;
+let index = localStorage.getItem("vendedorIndex");
 
-  index = (parseInt(index) + 1) % vendedores.length;
+index = parseInt(index);
 
-  localStorage.setItem("vendedorIndex", index);
+if (isNaN(index)) index = -1;
 
-  const vendedor = vendedores[index];
+index = (index + 1) % vendedores.length;
 
-  const resposta = await fetch(`${SUPABASE_URL}/rest/v1/leads`, {
+localStorage.setItem("vendedorIndex", index);
+
+const vendedorSelecionado = vendedores[index];
+
+console.log("VENDEDOR:", vendedorSelecionado);
+
+const resposta = await fetch(`${SUPABASE_URL}/rest/v1/leads`, {
   method: "POST",
   headers: {
     "apikey": SUPABASE_KEY,
     "Authorization": `Bearer ${SUPABASE_KEY}`,
     "Content-Type": "application/json",
-    "Prefer": "return=minimal"
+    "Prefer": "return=representation"
   },
   body: JSON.stringify({
-  telefone: telefone,
-  vendedor: vendedor.nome,
-  numero_vendedor: vendedor.numero,
-  campanha: campanha,
-  criativo: criativo,
-  loja: "AGRO BN"
-})
+    telefone: telefone,
+    vendedor: vendedorSelecionado.nome,
+    campanha: campanha,
+    criativo: criativo,
+    loja: "AGRO BN"
+  })
 });
 
 const resultado = await resposta.text();
