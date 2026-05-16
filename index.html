@@ -183,22 +183,27 @@ async function continuar() {
 
   const vendedor = vendedores[index];
 
-  await fetch(`${SUPABASE_URL}/rest/v1/leads`, {
-    method: "POST",
-    headers: {
-      "apikey": SUPABASE_KEY,
-      "Authorization": `Bearer ${SUPABASE_KEY}`,
-      "Content-Type": "application/json",
-      "Prefer": "return=minimal"
-    },
-    body: JSON.stringify({
-      telefone: telefone,
-      vendedor: vendedor,
-      campanha: campanha,
-      criativo: criativo,
-      loja: "Loja A"
-    })
-  });
+  const resposta = await fetch(`${SUPABASE_URL}/rest/v1/leads`, {
+  method: "POST",
+  headers: {
+    "apikey": SUPABASE_KEY,
+    "Authorization": `Bearer ${SUPABASE_KEY}`,
+    "Content-Type": "application/json",
+    "Prefer": "return=minimal"
+  },
+  body: JSON.stringify({
+    telefone: telefone,
+    vendedor: vendedor,
+    campanha: campanha,
+    criativo: criativo,
+    loja: "Loja A"
+  })
+});
+
+const resultado = await resposta.text();
+
+console.log("STATUS:", resposta.status);
+console.log("RESPOSTA:", resultado);
 
   const mensagem = encodeURIComponent(
     `Olá, vim do anúncio e gostaria de atendimento.`
