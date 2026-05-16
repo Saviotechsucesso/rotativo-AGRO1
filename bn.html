@@ -200,21 +200,23 @@ const resposta = await fetch(`${SUPABASE_URL}/rest/v1/leads`, {
     "apikey": SUPABASE_KEY,
     "Authorization": `Bearer ${SUPABASE_KEY}`,
     "Content-Type": "application/json",
-    "Prefer": "return=representation"
+    "Prefer": "return=minimal"
   },
   body: JSON.stringify({
     telefone: telefone,
     vendedor: vendedorSelecionado.nome,
     campanha: campanha,
     criativo: criativo,
-    loja: "AGRO BN"
+    loja: "AGRO BN",
+    data_hora: new Date().toLocaleDateString("pt-BR") + " " +
+      new Date().toLocaleTimeString("pt-BR", {
+        hour12: false
+      })
   })
 });
 
-const resultado = await resposta.text();
-
 console.log("STATUS:", resposta.status);
-console.log("RESPOSTA:", resultado);
+console.log("RESPOSTA:", await resposta.text());
 
   const mensagem = encodeURIComponent(
     `Olá, vim do anúncio e gostaria de atendimento.`
